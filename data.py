@@ -1,32 +1,58 @@
-from ReceiptModel import Receipt
 import uuid
+from ReceiptModel import Receipt
 
-class Data():
-    data = None
-    
+class DataError(Exception):
+    pass
+
+class Data:
+    """
+    This class is used to store and retrieve receipt data in memory
+    """
+
     def __init__(self):
+        """
+        Initializes an empty dictionary to hold receipt data
+        """
         self.data = {}
-    
-    def add_data(self, receipt: Receipt):
-        if not receipt: return -1
-        
-        try:
-            id = str(uuid.uuid4())
-            self.data[id] = receipt
-            
-            return id
-        except ValueError as err:
-            print("ERROR: ADDING {err}")
 
-        return "Unknown Error"
-            
-    def get_data_by_id(self, id):
-        if not id: return -1
-        
+    def add_data(self, receipt: Receipt):
+        """
+        add_data() generates a new UUID for the given receipt and stores it
+
+        Args:
+            receipt (Receipt): The receipt
+
+        Returns:
+            str: The UUID string used to store the receipt.
+        """
+        if not receipt:
+            raise DataError("No receipt was provided to add.")
+
         try:
-            return self.data[id.replace("%22", "")]
-        except KeyError as err:
-            print("ERROR: GETTING DATA {err}")
+            record_id = str(uuid.uuid4())
+            self.data[record_id] = receipt
+            return record_id
+        except ValueError as err:
+            raise DataError(f"Error while adding receipt: {err}")
+
+    def get_data_by_id(self, record_id: str):
+        """
+        get_data_by_id() retrieves the stored receipt with the given UUID
+
+        Args:
+            record_id (str): The UUID key
+
+        Returns:
+            Receipt: The receipt object matching the given UUID
+        """
+        if not record_id:
+            raise DataError("No ID was provided to retrieve data.")
+
+        try:
+            return self.data[record_id]
+        except KeyError:
+            raise DataError(f"No receipt found for ID: {record_id}")
+
         
         
                 
