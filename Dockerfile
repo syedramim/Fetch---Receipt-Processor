@@ -14,4 +14,4 @@ RUN python -m unittest discover
 
 EXPOSE 80
 
-CMD ["uvicorn", "api:app", "--host", "localhost", "--port", "80", "--reload"]
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
