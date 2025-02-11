@@ -23,10 +23,10 @@ class Data:
             receipt (Receipt): The receipt
 
         Returns:
-            str: The UUID string used to store the receipt.
+            str: The UUID string used to store the receipt
         """
         if not receipt:
-            raise DataError("No receipt was provided to add.")
+            raise DataError("No receipt was provided to add")
 
         try:
             record_id = str(uuid.uuid4())
@@ -46,7 +46,7 @@ class Data:
             Receipt: The receipt object matching the given UUID
         """
         if not record_id:
-            raise DataError("No ID was provided to retrieve data.")
+            raise DataError("No ID was provided to retrieve data")
 
         try:
             return self.data[record_id]

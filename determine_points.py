@@ -33,9 +33,9 @@ class ReceiptPoints:
         pts += self.handle_time_of_day(receipt["purchaseTime"])
         return pts
     except ReceiptPointsError as e:
-        return f"ERROR: {e}"
+        raise
     except (ValueError, TypeError, AttributeError) as err:
-        return f"ERROR: {err}"
+        raise ReceiptPointsError(str(err))
 
   def handle_store_name(self, name):
     """
@@ -133,9 +133,10 @@ class ReceiptPoints:
     if not d:
         raise ReceiptPointsError("Missing purchase date")
     try:
-        day = int(d[-2:])
+        parsed_date = datetime.strptime(d, "%Y-%m-%d")  
+        day = parsed_date.day
         return 6 if day % 2 == 1 else 0
-    except:
+    except Exception as e:
         raise ReceiptPointsError("Invalid purchase date format")
 
   def handle_time_of_day(self, t):
@@ -152,7 +153,7 @@ class ReceiptPoints:
         raise ReceiptPointsError("Missing purchase time")
     try:
         converted = datetime.strptime(t, "%H:%M").time()
-        if time(14, 0) <= converted <= time(16, 0):
+        if time(14, 0) < converted < time(16, 0):
             return 10
         return 0
     except:
