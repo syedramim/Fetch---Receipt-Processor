@@ -81,5 +81,3 @@ python -m unittest discover
 
 ## Note
 Data is stored in memory only. All receipts will be lost when the application stops.
-
-This project is provided as a solution to the Receipt Processor Challenge.
