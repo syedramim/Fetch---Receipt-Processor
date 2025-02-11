@@ -58,7 +58,7 @@ Replace `<id>` with the actual ID returned from the previous call. This should r
 ### Clone the Repository
 ```bash
 git clone https://github.com/syedramim/Receipt-Processor.git
-cd receipt-processor-challenge
+cd Receipt-Processor
 ```
 
 ### Using Docker
