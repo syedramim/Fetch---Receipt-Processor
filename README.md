@@ -53,7 +53,7 @@ Replace `<id>` with the actual ID returned from the previous call. This should r
 ### Prerequisites
 - Git installed.
 - Python 3.12.6 or higher.
-- Docker (optional for containerized deployment).
+- Docker.
 
 ### Clone the Repository
 ```bash
